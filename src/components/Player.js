@@ -1,35 +1,21 @@
-import React, { PureComponent } from 'react';
+import React, { useContext } from 'react';
 import Counter from './Counter';
 import Icon from './Icon';
-import {Consumer} from './Context';
+import {ScoreboardContext} from './Context';
 
-class Player extends PureComponent {
-  
-  render() {
-    
-    const { 
-      index
-    } = this.props;
-
+const Player = ({index}) => {
+    const { players, actions } = useContext(ScoreboardContext);
     return (
       <div className="player">
-        <Consumer>
-          { ({actions, players}) => (
-            <span className="player-name">
-            <button className="remove-player" onClick={() => actions.removePlayer(players[index].id)}>✖</button>
-          
+        <span className="player-name">
+          <button className="remove-player" onClick={() => actions.removePlayer(players[index].id)}>✖</button>
           <Icon isHighScore={actions.getHighScore() === players[index].score} />
-            { players[index].name }
-          </span>
-          )}
+          { players[index].name }
+        </span>
 
-        </Consumer>  
-        <Counter 
-          index={index}
-        />
+        <Counter index={index} />
       </div>
     );
-  }
 }
 
 export default Player;

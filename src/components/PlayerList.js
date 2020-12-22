@@ -1,22 +1,19 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Player from './Player';
-import { Consumer } from './Context';
+import { ScoreboardContext } from './Context';
 
-const PlayerList = () => {
+function PlayerList() {
+  const { players } = useContext(ScoreboardContext)
   return (
-    <Consumer>
-      { ({players}) => (
-        <React.Fragment>
-          {players.map((player, index) =>
-            <Player
-              index={index}
-              key={player.id.toString()}
-            />
-          )}
-        </React.Fragment>
+    <React.Fragment>
+      {players.map((player, index) =>
+        <Player
+          index={index}
+          key={player.id.toString()}
+        />
       )}
-    </Consumer>
-  );
+    </React.Fragment>
+  )
 };
 
 export default PlayerList;
